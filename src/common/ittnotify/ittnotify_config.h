@@ -360,8 +360,8 @@ ITT_INLINE long __TBB_machine_fetchadd4(volatile void* ptr, long addend)
 #define __TBB_machine_fetchadd4(addr, val) __sync_fetch_and_add(addr, val)
 #endif /* ITT_ARCH==ITT_ARCH_IA64 */
 #ifndef ITT_SIMPLE_INIT
-ITT_INLINE long
-__itt_interlocked_increment(volatile long* ptr) ITT_INLINE_ATTRIBUTE;
+//ITT_INLINE long
+//__itt_interlocked_increment(volatile long* ptr) ITT_INLINE_ATTRIBUTE;
 ITT_INLINE long __itt_interlocked_increment(volatile long* ptr)
 {
     return __TBB_machine_fetchadd4(ptr, 1) + 1L;
