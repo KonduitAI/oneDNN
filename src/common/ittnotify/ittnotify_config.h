@@ -283,9 +283,9 @@ typedef pthread_mutex_t   mutex_t;
 #define __itt_thread_id()         GetCurrentThreadId()
 #define __itt_thread_yield()      SwitchToThread()
 #ifndef ITT_SIMPLE_INIT
-ITT_INLINE long
-__itt_interlocked_increment(volatile long* ptr) ITT_INLINE_ATTRIBUTE;
-ITT_INLINE long __itt_interlocked_increment(volatile long* ptr)
+//ITT_INLINE long
+//__itt_interlocked_increment(volatile long* ptr) ITT_INLINE_ATTRIBUTE;
+long __itt_interlocked_increment(volatile long* ptr)
 {
     return InterlockedIncrement(ptr);
 }
