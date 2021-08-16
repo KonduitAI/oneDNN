@@ -226,6 +226,39 @@ ITT_GROUP_LIST(group_list);
 
 #pragma pack(push, 8)
 
+#ifndef ITT_SIMPLE_INIT
+#define ITT_SIMPLE_INIT
+//ITT_INLINE long
+//__itt_interlocked_increment(volatile long* ptr) ITT_INLINE_ATTRIBUTE;
+#if ITT_PLATFORM==ITT_PLATFORM_WIN
+long __itt_interlocked_increment(volatile long* ptr)
+{
+  return InterlockedIncrement(ptr);
+}
+
+#else
+ITT_INLINE long __itt_interlocked_increment(volatile long* ptr)
+{
+  return __TBB_machine_fetchadd4(ptr, 1) + 1L;
+}
+#endif
+
+
+
+
+
+#endif /* ITT_SIMPLE_INIT */
+
+
+__itt_id ITTAPI __itt_id_make(void* addr, unsigned long long extra)
+{
+  __itt_id id = __itt_null;
+  id.d1 = (unsigned long long)((uintptr_t)addr);
+  id.d2 = (unsigned long long)extra;
+  id.d3 = (unsigned long long)0; /* Reserved. Must be zero */
+  return id;
+}
+
 typedef struct ___itt_group_alias
 {
     const char*    env_var;

@@ -284,11 +284,8 @@ typedef pthread_mutex_t   mutex_t;
 #define __itt_thread_yield()      SwitchToThread()
 #ifndef ITT_SIMPLE_INIT
 //ITT_INLINE long
-//__itt_interlocked_increment(volatile long* ptr) ITT_INLINE_ATTRIBUTE;
-long __itt_interlocked_increment(volatile long* ptr)
-{
-    return InterlockedIncrement(ptr);
-}
+long __itt_interlocked_increment(volatile long* ptr) ITT_INLINE_ATTRIBUTE;
+
 #endif /* ITT_SIMPLE_INIT */
 
 #define DL_SYMBOLS (1)
@@ -359,14 +356,6 @@ ITT_INLINE long __TBB_machine_fetchadd4(volatile void* ptr, long addend)
 #elif ITT_ARCH==ITT_ARCH_ARM || ITT_ARCH==ITT_ARCH_AARCH64 || ITT_ARCH==ITT_ARCH_PPC64
 #define __TBB_machine_fetchadd4(addr, val) __sync_fetch_and_add(addr, val)
 #endif /* ITT_ARCH==ITT_ARCH_IA64 */
-#ifndef ITT_SIMPLE_INIT
-//ITT_INLINE long
-//__itt_interlocked_increment(volatile long* ptr) ITT_INLINE_ATTRIBUTE;
-ITT_INLINE long __itt_interlocked_increment(volatile long* ptr)
-{
-    return __TBB_machine_fetchadd4(ptr, 1) + 1L;
-}
-#endif /* ITT_SIMPLE_INIT */
 
 #if 1
 void* dlopen(const char*, int) __attribute__((weak));

@@ -1837,15 +1837,8 @@ static const __itt_id __itt_null = { 0, 0, 0 };
  * @param[in] extra The extra data to unique identify object; low QWORD of the ID value.
  */
 
-//ITT_INLINE __itt_id ITTAPI __itt_id_make(void* addr, unsigned long long extra) ITT_INLINE_ATTRIBUTE;
-__itt_id ITTAPI __itt_id_make(void* addr, unsigned long long extra)
-{
-    __itt_id id = __itt_null;
-    id.d1 = (unsigned long long)((uintptr_t)addr);
-    id.d2 = (unsigned long long)extra;
-    id.d3 = (unsigned long long)0; /* Reserved. Must be zero */
-    return id;
-}
+__itt_id ITTAPI __itt_id_make(void* addr, unsigned long long extra) ITT_INLINE_ATTRIBUTE;
+
 
 /**
  * @ingroup ids
